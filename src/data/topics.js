@@ -1,0 +1,376 @@
+const verificationNote =
+  'AI-assisted teaching draft reviewed for beginner C++ accuracy. The exact official syllabus was not supplied: the lecturer must verify curriculum alignment, examples, and assessment suitability before formal use.'
+
+export const topics = [
+  {
+    id: 'intro',
+    number: 1,
+    title: 'INTRODUCTION TO PROGRAMMING LANGUAGE',
+    shortTitle: 'Introduction',
+    description: 'Discover programming languages and design a clear solution before writing code.',
+    color: 'purple',
+    icon: 'Compass',
+    duration: '55 min',
+    overview:
+      'Programming turns a problem-solving plan into instructions that a computer can execute. Explore the development of programming languages, translation tools, and the Input–Process–Output model. Build algorithms, flowcharts, and pseudocode before moving to C++ implementation.',
+    objectives: [
+      'Define a program, programmer, and programming language.',
+      'Differentiate language types, generations, approaches, and translation tools.',
+      'Identify inputs, processing steps, and outputs in an everyday problem.',
+      'Construct and trace a finite algorithm, flowchart, and pseudocode solution.',
+    ],
+    notes: [
+      {
+        id: 'intro-language',
+        title: 'Programs, programmers, and languages',
+        body: 'A program is a set of instructions expressed in a form a computer can execute. A programmer analyses a problem, designs a solution, writes instructions, and tests the result. A programming language provides a defined vocabulary, syntax (writing rules), and semantics (meaning) for expressing those instructions. Correct syntax alone does not guarantee a correct solution.',
+        bm: 'Atur cara ialah satu set arahan. Pengatur cara merancang, menulis dan menguji penyelesaian masalah.',
+      },
+      {
+        id: 'intro-history',
+        title: 'A short history of programming languages',
+        body: 'Early electronic computers were programmed using machine instructions. Assembly languages introduced symbolic instruction names. Higher-level languages such as FORTRAN (1957) and COBOL (1959) made numerical and business programming easier. C developed in the early 1970s. Work on C with Classes began in 1979 and the name C++ appeared in 1983. Modern languages and tools continue to improve abstraction, safety, and productivity; older languages remain useful.',
+      },
+      {
+        id: 'intro-types',
+        title: 'Machine, assembly, and high-level languages',
+        body: 'Machine language encodes processor instructions as numeric bit patterns and depends on the processor architecture. Assembly uses symbolic names for machine instructions and remains close to the hardware. High-level languages use abstractions that are easier for people to read and can target different machines through suitable implementations. C++ is a high-level language with facilities for low-level programming.',
+      },
+      {
+        id: 'intro-generations',
+        title: 'Language generations',
+        body: 'A common teaching classification calls machine code first-generation (1GL), assembly second-generation (2GL), and general-purpose high-level languages such as C++ third-generation (3GL). Fourth-generation (4GL) describes more declarative, domain-focused languages and tools, often including SQL. Fifth-generation (5GL) is associated with logic or constraint-based problem solving. These labels are historical categories with disputed boundaries, not a ranking of language quality; verify the lecturer’s syllabus terminology.',
+      },
+      {
+        id: 'intro-approaches',
+        title: 'Programming approaches',
+        body: 'Procedural programming organises a solution as operations and procedures. Object-oriented programming groups data and behaviour into objects. Declarative programming expresses a desired result or relationship rather than every execution step. Structured programming uses clear sequence, selection, and repetition. Top-down design breaks a large problem into smaller tasks; bottom-up design combines small reusable components. C++ supports several approaches; this hub begins with structured procedural solutions.',
+      },
+      {
+        id: 'intro-translators',
+        title: 'Assemblers, compilers, and interpreters',
+        body: 'An assembler translates assembly instructions into machine code. A compiler translates source code into another representation, commonly object or machine code; a linker combines required components into an executable. An interpreter executes a program through a runtime without requiring a separate ahead-of-time executable in the usual workflow. Some language implementations combine compilation and interpretation. For normal C++ development, save source, compile, fix diagnostics, run, and test the executable.',
+      },
+      {
+        id: 'intro-ipo',
+        title: 'Input → Process → Output',
+        body: 'Input is the data supplied to a solution, processing transforms that data, and output is the result communicated. For a photocopy bill, inputs are the number of pages and price per page; processing multiplies them; output is the total cost in RM. Include input constraints and units so the required result is unambiguous.',
+        bm: 'Input: data yang diterima. Proses: operasi terhadap data. Output: hasil yang dipaparkan.',
+      },
+      {
+        id: 'intro-solving',
+        title: 'A practical problem-solving cycle',
+        body: 'Read the scenario and identify requirements, constraints, inputs, and outputs. Break the problem into manageable steps. Design the algorithm and representations. Trace the plan using normal and boundary cases, then implement when appropriate. Compile, run, compare actual and expected results, and debug any mismatch. Document decisions and improve the solution. A dry run checks the planned steps manually before coding.',
+      },
+      {
+        id: 'intro-algorithms',
+        title: 'Algorithms and pseudocode',
+        body: 'An algorithm is a finite, ordered set of unambiguous steps that solves a problem. Pseudocode expresses these steps in readable, language-independent notation: START; INPUT pages, pricePerPage; SET total = pages × pricePerPage; OUTPUT total; END. Use meaningful names and keep the sequence clear. Pseudocode has no single universal syntax, so follow the lecturer’s convention. Trace pages = 20 and pricePerPage = 0.10 to obtain RM 2.00.',
+      },
+      {
+        id: 'intro-flowcharts',
+        title: 'Flowchart symbols and tracing',
+        body: 'Use an oval or rounded terminator for Start/End, a parallelogram for Input/Output, a rectangle for Processing, a diamond for a Decision, and arrows for direction. Label decision exits such as Yes/No and ensure each path has a clear outcome. The photocopy calculation follows Start → Input pages and price → Calculate total → Output total → End. A decision belongs in the flowchart only when the requirements include a choice.',
+      },
+      {
+        id: 'intro-bridge',
+        title: 'Optional bridge: an algorithm expressed in C++',
+        body: 'This complete example illustrates Input–Process–Output using fixed inputs. It is a preview of Topic 2, not a compulsory Topic 1 coding requirement. Change the values, predict the result, then compile and check it in your own approved C++ environment.',
+        code: '#include <iostream>\nusing namespace std;\n\nint main() {\n    int pages = 20;\n    double pricePerPage = 0.10;\n    double total = pages * pricePerPage;\n    cout << "Photocopy total: RM " << total << endl;\n    return 0;\n}',
+      },
+    ],
+    takeaways: [
+      'Plan and trace a solution before implementation.',
+      'Match the algorithm, pseudocode, and flowchart to the same requirements.',
+      'Distinguish translation tools without assuming that a language has only one possible implementation.',
+    ],
+    verificationNote,
+  },
+  {
+    id: 'variables',
+    number: 2,
+    title: 'FUNDAMENTALS OF PROGRAMMING',
+    shortTitle: 'Fundamentals',
+    description: 'Build readable C++ programs with variables, expressions, and console input/output.',
+    color: 'orange',
+    icon: 'Boxes',
+    duration: '60 min',
+    overview:
+      'Construct a complete C++ console program, choose suitable data types, and translate simple calculations into expressions. Read input, process it safely, and display useful labelled output. Compile and test rather than treating a program that compiles as automatically correct.',
+    objectives: [
+      'Explain the structure of a basic C++ console program.',
+      'Declare and initialise variables and constants using suitable types.',
+      'Evaluate arithmetic, relational, and logical expressions with correct precedence.',
+      'Read console input, calculate a result, and display labelled output.',
+    ],
+    notes: [
+      {
+        id: 'variables-structure',
+        title: 'The structure of a C++ program',
+        body: '#include <iostream> makes standard console stream declarations available. main is the entry point of this console program. Braces group the function body, most statements end with a semicolon, and // introduces a single-line comment. std::cout names the standard output stream explicitly. return 0 reports successful completion from main.',
+        code: '#include <iostream>\n\nint main() {\n    // Display a message.\n    std::cout << "Ready to learn C++!" << std::endl;\n    return 0;\n}',
+      },
+      {
+        id: 'variables-names',
+        title: 'Variables, declarations, and assignment',
+        body: 'A variable is a named object that stores a value of a declared type. int pages = 20; declares and initialises pages. pages = 25; assigns a new value. Identifiers are case-sensitive, cannot be reserved keywords, and cannot begin with a digit. Use meaningful names such as totalCost and initialise values before reading them. The assignment operator = differs from the equality comparison operator ==.',
+        bm: 'Pemboleh ubah menyimpan nilai yang boleh berubah. Pengisytiharan menentukan jenis data dan nama.',
+      },
+      {
+        id: 'variables-types',
+        title: 'Choose a suitable data type',
+        body: 'Use int for ordinary whole-number counts, double for values that may contain fractional parts, char for a single character, and bool for true/false conditions. A character literal uses single quotes; a string literal uses double quotes. The C++ standard library offers std::string for text, though this beginner example focuses on fundamental types. Type sizes vary by implementation. Floating-point values are approximations, so displayed decimals may need formatting.',
+        code: '#include <iostream>\nusing namespace std;\n\nint main() {\n    int pages = 20;\n    double unitPrice = 0.10;\n    char category = \'A\';\n    bool isStudent = true;\n    cout << pages << " pages at RM " << unitPrice << endl;\n    cout << "Category: " << category << endl;\n    cout << "Student flag: " << isStudent << endl;\n    return 0;\n}',
+      },
+      {
+        id: 'variables-constants',
+        title: 'Constants and literals',
+        body: 'A literal is a value written directly in source code, such as 20, 0.10, or \'A\'. A named constant such as const double pricePerPage = 0.10; gives a fixed value a meaningful name. Initialise a const object when declaring it and do not assign another value later. Use constants for fixed prices or conversion factors instead of repeating unexplained numbers.',
+      },
+      {
+        id: 'variables-arithmetic',
+        title: 'Arithmetic operators and numeric division',
+        body: 'Use + for addition, - for subtraction, * for multiplication, / for division, and % for the integer remainder. With int operands, 7 / 2 gives 3; 7 / 2.0 gives 3.5. The remainder expression 7 % 2 gives 1. A denominator must not be zero. ++ and -- change a numeric variable by one; use them in clear standalone statements while learning. A double total does not prevent integer division if both operands in the expression are int.',
+        code: '#include <iostream>\nusing namespace std;\n\nint main() {\n    int points = 7;\n    int activities = 2;\n    cout << "Whole-number division: " << points / activities << endl;\n    cout << "Average: " << points / 2.0 << endl;\n    cout << "Remainder: " << points % activities << endl;\n    return 0;\n}',
+      },
+      {
+        id: 'variables-comparisons',
+        title: 'Relational and logical expressions',
+        body: 'Relational operators <, <=, >, >=, ==, and != compare values and produce bool results. Logical && means both conditions must be true, || means at least one must be true, and ! reverses a boolean result. To test a range, use score >= 0 && score <= 100; do not write 0 <= score <= 100 because C++ evaluates that as two successive comparisons.',
+      },
+      {
+        id: 'variables-expressions',
+        title: 'Expressions and precedence',
+        body: 'An expression combines operands and operators to produce a value. Multiplication, division, and remainder take precedence over addition and subtraction. Parentheses explicitly group a calculation: (quiz1 + quiz2) / 2.0 calculates a decimal average. Relational and logical expressions have their own precedence; add parentheses to communicate intent. Trace intermediate values to detect incorrect grouping.',
+      },
+      {
+        id: 'variables-io',
+        title: 'Console input and output',
+        body: 'cout << sends values to standard output. cin >> extracts whitespace-separated input and stores it in variables. Prompts state the expected units and input format. This example assumes valid positive numeric input; malformed input needs additional handling in a complete application. endl starts a new line and flushes the stream; \\n also represents a newline. Use iomanip with fixed and setprecision(2) when displaying currency to two decimal places.',
+        code: '#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nint main() {\n    int pages = 0;\n    const double pricePerPage = 0.10;\n    cout << "Enter a positive number of pages: ";\n    cin >> pages;\n    double total = pages * pricePerPage;\n    cout << fixed << setprecision(2);\n    cout << "Total: RM " << total << endl;\n    return 0;\n}',
+      },
+      {
+        id: 'variables-statements',
+        title: 'Build and test a sequence of statements',
+        body: 'A declaration introduces a variable, an assignment updates it, and an input or output expression performs an operation. In a basic sequence, statements execute in order. Predict results for more than one test input, compile the source, fix syntax diagnostics, run the executable, and compare its output with your expected calculations. A calculation that uses a value before input or initialisation is a logic error even when the file compiles.',
+      },
+    ],
+    takeaways: [
+      'Select types and descriptive names before calculating.',
+      'Check operand types, grouping, and input assumptions.',
+      'Compile, execute, and compare actual output with independently calculated expected results.',
+    ],
+    verificationNote,
+  },
+  {
+    id: 'control',
+    number: 3,
+    title: 'PROGRAM CONTROL STRUCTURE',
+    shortTitle: 'Control Structure',
+    description: 'Guide program execution with sequence, decisions, and repetition.',
+    color: 'blue',
+    icon: 'GitBranch',
+    duration: '65 min',
+    overview:
+      'Sequence executes statements in order, selection chooses a path, and iteration repeats work. Use trace tables and boundary tests to construct clear C++ solutions with conditions and loops. Choose the structure that matches the problem rather than adding unnecessary complexity.',
+    objectives: [
+      'Trace sequential, selection, and iteration structures.',
+      'Construct if, if-else, else-if, and switch decisions.',
+      'Select and implement for, while, and do-while loops.',
+      'Analyse boundaries, loop termination, and simple nested structures.',
+    ],
+    notes: [
+      {
+        id: 'control-sequence',
+        title: 'Sequence and boolean conditions',
+        body: 'Sequential statements execute in their written order. Selection and repetition use conditions that evaluate to true or false. A condition such as mark >= 50 compares a value with a threshold. Assignment = is different from comparison ==. Use braces for controlled statement blocks so the intended structure remains clear when code is extended.',
+      },
+      {
+        id: 'control-if',
+        title: 'if and if-else',
+        body: 'An if statement runs its body when the condition is true. An if-else chooses exactly one of two branches. Include boundary values in your tests: a pass condition mark >= 50 must pass 50 and fail 49. Avoid a semicolon immediately after the if condition; that would form an empty controlled statement.',
+        code: '#include <iostream>\nusing namespace std;\n\nint main() {\n    int mark = 50;\n    if (mark >= 50) {\n        cout << "Pass" << endl;\n    } else {\n        cout << "Needs improvement" << endl;\n    }\n    return 0;\n}',
+        bm: 'Struktur pilihan memilih tindakan berdasarkan syarat yang benar atau palsu.',
+      },
+      {
+        id: 'control-ladder',
+        title: 'else-if ladders and condition order',
+        body: 'An else-if ladder checks conditions from top to bottom and runs the first matching branch. When classifying marks, test the highest threshold first, then lower thresholds. For example, mark >= 80 means Excellent, else mark >= 50 means Pass, else means Needs improvement. Input validity must be checked separately if marks outside 0–100 are possible.',
+        code: '#include <iostream>\nusing namespace std;\n\nint main() {\n    int mark = 75;\n    if (mark >= 80) {\n        cout << "Excellent" << endl;\n    } else if (mark >= 50) {\n        cout << "Pass" << endl;\n    } else {\n        cout << "Needs improvement" << endl;\n    }\n    return 0;\n}',
+      },
+      {
+        id: 'control-switch',
+        title: 'switch for discrete choices',
+        body: 'switch compares an integral or enumeration value with constant case labels. char and int are suitable beginner examples; ordinary text strings and double are not switch selectors. break exits the switch after a selected case, preventing unintended fall-through. default handles unmatched choices. Use if-else when conditions involve ranges or different variables.',
+        code: '#include <iostream>\nusing namespace std;\n\nint main() {\n    int choice = 2;\n    switch (choice) {\n        case 1:\n            cout << "Read notes" << endl;\n            break;\n        case 2:\n            cout << "Practise coding" << endl;\n            break;\n        default:\n            cout << "Choose 1 or 2" << endl;\n    }\n    return 0;\n}',
+      },
+      {
+        id: 'control-for',
+        title: 'for loops and counters',
+        body: 'A for loop groups initialisation, a condition, and an update. The initialisation runs once; the condition is checked before each iteration; the update runs after the body. It is useful when the number of repetitions is known. The example uses an accumulator initialised to zero and runs three times. Trace both the counter and accumulated total to detect off-by-one errors.',
+        code: '#include <iostream>\nusing namespace std;\n\nint main() {\n    int total = 0;\n    for (int session = 1; session <= 3; ++session) {\n        total = total + 20;\n    }\n    cout << "Study minutes: " << total << endl;\n    return 0;\n}',
+      },
+      {
+        id: 'control-while',
+        title: 'while loops and termination',
+        body: 'A while loop checks its condition before running the body, so it may execute zero times. Use it when repetition depends on a condition rather than a fixed count. Initialise the values used by the condition and make progress toward termination. In a sentinel-controlled input loop, check the sentinel before including it in a calculation.',
+        code: '#include <iostream>\nusing namespace std;\n\nint main() {\n    int minutes = 0;\n    while (minutes < 60) {\n        minutes = minutes + 20;\n        cout << "Studied: " << minutes << " minutes" << endl;\n    }\n    return 0;\n}',
+      },
+      {
+        id: 'control-dowhile',
+        title: 'do-while runs at least once',
+        body: 'A do-while loop checks its condition after the body. It therefore executes at least once, which suits an action that must be shown before deciding to repeat. A semicolon is required after while (condition) in this structure. Choose between while and do-while by considering whether the first execution should depend on the condition.',
+        code: '#include <iostream>\nusing namespace std;\n\nint main() {\n    int attempt = 1;\n    do {\n        cout << "Practice attempt " << attempt << endl;\n        ++attempt;\n    } while (attempt <= 3);\n    return 0;\n}',
+      },
+      {
+        id: 'control-nested',
+        title: 'Simple nested structures',
+        body: 'A nested structure is placed inside another structure. For example, a decision inside a loop can count passes while processing several marks. In nested loops, the inner loop completes for each iteration of the outer loop. Use distinct counter names, correct indentation, and trace a small example. Keep nesting shallow enough to explain and test easily.',
+        code: '#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int row = 1; row <= 2; ++row) {\n        for (int column = 1; column <= 3; ++column) {\n            cout << "*";\n        }\n        cout << endl;\n    }\n    return 0;\n}',
+      },
+      {
+        id: 'control-testing',
+        title: 'Trace and debug control flow',
+        body: 'Record variable values, condition results, chosen branches, and loop iterations in a trace table. Test just below, exactly at, and just above each threshold. For loops, test the intended first and last iteration, and consider zero repetitions where appropriate. Check initialisation, condition, and update if a loop never runs or fails to stop. Compare the trace with the problem requirements before changing code.',
+      },
+    ],
+    takeaways: [
+      'Match each decision or loop to a clear requirement.',
+      'Test threshold boundaries and loop termination.',
+      'Trace counters and accumulators to explain program behaviour.',
+    ],
+    verificationNote,
+  },
+  {
+    id: 'arrays',
+    number: 4,
+    title: 'ARRAYS',
+    shortTitle: 'Arrays',
+    description: 'Store related values together and process them safely with loops.',
+    color: 'teal',
+    icon: 'Layers',
+    duration: '50 min',
+    overview:
+      'A one-dimensional array stores a fixed number of elements of the same type. Use zero-based indexing and loops to read, update, display, and summarise a small dataset. Correct bounds are essential: an out-of-range array access is not a safe way to obtain another value.',
+    objectives: [
+      'Declare and initialise a fixed-size one-dimensional C++ array.',
+      'Access and update elements using valid zero-based indices.',
+      'Use loops to input, display, and process array values.',
+      'Test totals, averages, searches, and boundary indices.',
+    ],
+    notes: [
+      {
+        id: 'arrays-concept',
+        title: 'An array groups related values',
+        body: 'An array stores multiple elements of the same type under one name. A fixed-size int marks[5] has five int elements, rather than five separate variable names. Each element is selected by an index. A one-dimensional array is a linear collection; this topic focuses on fixed-size one-dimensional arrays and loop processing.',
+        bm: 'Tatasusunan menyimpan beberapa nilai daripada jenis data yang sama. Indeks bermula dengan 0.',
+      },
+      {
+        id: 'arrays-declare',
+        title: 'Declaration and initialisation',
+        body: 'int marks[5] = {62, 75, 48, 90, 55}; declares and initialises five elements. int counts[5] = {}; initialises all five elements to zero. A local int marks[5]; without an initialiser does not initialise its elements; assign values before reading them. Use a named constant such as const int size = 5; for a fixed bound. Variable-length built-in arrays are not standard C++.',
+      },
+      {
+        id: 'arrays-index',
+        title: 'Access and update elements',
+        body: 'For an array of five elements, valid indices are 0, 1, 2, 3, and 4. marks[0] accesses the first element; marks[4] accesses the last. marks[2] = 50; updates the third element. Access outside these bounds causes undefined behaviour: a program may crash, display a misleading value, or appear to work. Built-in arrays do not automatically validate an index.',
+        code: '#include <iostream>\nusing namespace std;\n\nint main() {\n    int marks[5] = {62, 75, 48, 90, 55};\n    marks[2] = 50;\n    cout << "First mark: " << marks[0] << endl;\n    cout << "Third mark: " << marks[2] << endl;\n    cout << "Last mark: " << marks[4] << endl;\n    return 0;\n}',
+      },
+      {
+        id: 'arrays-loops',
+        title: 'Input and display with loops',
+        body: 'Use a counter from zero while index < size. The body reads or displays exactly one element per iteration. Display index + 1 when presenting human-friendly item numbers, while keeping the actual array index zero-based. Use the same named size for declaration and processing to avoid mismatched limits.',
+        code: '#include <iostream>\nusing namespace std;\n\nint main() {\n    const int size = 3;\n    int minutes[size] = {};\n    cout << "Enter 3 non-negative study durations: ";\n    for (int index = 0; index < size; ++index) {\n        cin >> minutes[index];\n    }\n    for (int index = 0; index < size; ++index) {\n        cout << "Session " << index + 1 << ": " << minutes[index] << endl;\n    }\n    return 0;\n}',
+      },
+      {
+        id: 'arrays-summary',
+        title: 'Totals and averages',
+        body: 'Initialise an accumulator to zero, then add each array element inside a loop. Divide by a non-zero number of elements to obtain an average. When an integer total is divided by an integer size, use a floating-point operand such as static_cast<double>(total) to retain the fractional part. These calculations assume values and totals remain within the chosen type’s range.',
+        code: '#include <iostream>\nusing namespace std;\n\nint main() {\n    const int size = 5;\n    int marks[size] = {62, 75, 48, 90, 55};\n    int total = 0;\n    for (int index = 0; index < size; ++index) {\n        total = total + marks[index];\n    }\n    double average = static_cast<double>(total) / size;\n    cout << "Total: " << total << endl;\n    cout << "Average: " << average << endl;\n    return 0;\n}',
+      },
+      {
+        id: 'arrays-search',
+        title: 'Find a maximum and search for a value',
+        body: 'For a non-empty array, initialise the maximum from the first element, then compare remaining elements and update it when a larger value appears. Starting from zero fails for a dataset containing only negative numbers. A linear search checks elements one by one for a target. Track a found flag or matching index and report clearly when the target is absent. These are loop-based array-processing examples, not a claim about an unavailable official subtopic list.',
+        code: '#include <iostream>\nusing namespace std;\n\nint main() {\n    const int size = 4;\n    int marks[size] = {62, 75, 48, 90};\n    int maximum = marks[0];\n    bool found = false;\n    int target = 75;\n    for (int index = 0; index < size; ++index) {\n        if (marks[index] > maximum) {\n            maximum = marks[index];\n        }\n        if (marks[index] == target) {\n            found = true;\n        }\n    }\n    cout << "Highest mark: " << maximum << endl;\n    cout << "Target found: " << found << endl;\n    return 0;\n}',
+      },
+      {
+        id: 'arrays-testing',
+        title: 'Test array processing',
+        body: 'Check the first and last valid indices, the number of loop iterations, and the independently calculated total. Try equal values, a target at the first or last position, and a target that is absent. For marks, include 0 and 100. Do not test bounds by deliberately reading an invalid index; inspect the loop condition and validate user-supplied indices before access.',
+      },
+    ],
+    takeaways: [
+      'A size of n gives valid indices from 0 to n − 1.',
+      'Initialise each element before reading it.',
+      'Use loops with index < size and test the calculation independently.',
+    ],
+    verificationNote,
+  },
+  {
+    id: 'functions',
+    number: 5,
+    title: 'FUNCTIONS',
+    shortTitle: 'Functions',
+    description: 'Create clear, reusable C++ functions with parameters and return values.',
+    color: 'pink',
+    icon: 'Braces',
+    duration: '50 min',
+    overview:
+      'Divide a small program into named tasks. Learn function declarations, definitions, calls, parameters, arguments, return values, and simple by-value argument passing. This proposed introductory scope must be checked against the official syllabus through subtopic 5.2.3 before formal teaching or assessment.',
+    objectives: [
+      'Distinguish a function declaration, definition, and call.',
+      'Match arguments with parameter types and order.',
+      'Construct a simple function that calculates and returns a value.',
+      'Trace calls and explain how by-value parameters behave.',
+    ],
+    notes: [
+      {
+        id: 'functions-purpose',
+        title: 'A function performs a named task',
+        body: 'A function groups statements that perform a defined task. A small program can call the same task with different inputs instead of repeating its calculation. Give each function a meaningful name and a focused responsibility. main controls this program’s overall sequence; helper functions perform calculations or display information.',
+        bm: 'Fungsi mengumpulkan arahan untuk melaksanakan tugas tertentu. Parameter menerima nilai daripada argumen.',
+      },
+      {
+        id: 'functions-declaration',
+        title: 'Function declarations',
+        body: 'A declaration tells the compiler a function’s name, return type, and parameter types before a call is encountered. double calculateCost(int pages, double pricePerPage); is a declaration, also called a prototype. It ends with a semicolon and has no body. The corresponding definition must agree with the declared return type and parameter types. A definition placed before a call can also provide the declaration needed for that call.',
+      },
+      {
+        id: 'functions-definition',
+        title: 'Function definitions and return values',
+        body: 'A definition contains the function header and a body inside braces. A return statement supplies the computed value to the caller and ends that invocation. A function with a non-void return type must provide a suitable result on each reachable path that requires one. A void function performs a task without returning a value. Keep the calculation independent of unrelated input or output when practical.',
+        code: '#include <iostream>\nusing namespace std;\n\ndouble calculateCost(int pages, double pricePerPage) {\n    return pages * pricePerPage;\n}\n\nint main() {\n    double total = calculateCost(20, 0.10);\n    cout << "Photocopy total: RM " << total << endl;\n    return 0;\n}',
+      },
+      {
+        id: 'functions-parameters',
+        title: 'Parameters and arguments',
+        body: 'Parameters are the named inputs declared in a function’s header. Arguments are the expressions supplied at a call. In calculateCost(20, 0.10), 20 and 0.10 are arguments matched in order to pages and pricePerPage. Match the number, order, and intended types. C++ can convert some argument types, but unintended conversions can discard a fractional part and cause a logic error.',
+      },
+      {
+        id: 'functions-calls',
+        title: 'Calls and the flow of execution',
+        body: 'When main calls a function, the arguments initialise its parameters, its body executes, and control returns to the caller. A returned value can initialise a variable or appear in another expression. Calling a function and ignoring its return value does not automatically store the result. This complete example declares the function before main and defines it after main.',
+        code: '#include <iostream>\nusing namespace std;\n\nint calculateMinutes(int sessions, int minutesPerSession);\n\nint main() {\n    int total = calculateMinutes(3, 20);\n    cout << "Total minutes: " << total << endl;\n    cout << "Second plan: " << calculateMinutes(2, 25) << endl;\n    return 0;\n}\n\nint calculateMinutes(int sessions, int minutesPerSession) {\n    return sessions * minutesPerSession;\n}',
+      },
+      {
+        id: 'functions-value',
+        title: 'Passing arguments by value',
+        body: 'With a simple by-value parameter, the function receives its own copy of the argument value. Updating that parameter does not update the caller’s original variable. Return a computed value and assign it in the caller when you want to retain a result. The variable names in main do not have to match the parameter names. This scope uses by-value passing; other passing mechanisms require lecturer confirmation against the official limit.',
+        code: '#include <iostream>\nusing namespace std;\n\nint addSession(int completed) {\n    completed = completed + 1;\n    return completed;\n}\n\nint main() {\n    int sessions = 2;\n    int updated = addSession(sessions);\n    cout << "Original: " << sessions << endl;\n    cout << "Returned: " << updated << endl;\n    return 0;\n}',
+      },
+      {
+        id: 'functions-testing',
+        title: 'Test functions independently',
+        body: 'List the intended parameter values and expected return value before running a test. Test ordinary and boundary inputs permitted by the problem, then verify both the function calculation and how main uses the result. Check declaration/definition agreement, argument order, and integer division if results are wrong. Scope means a local variable belongs to its own block or function; a variable declared inside one function is not directly available inside another.',
+      },
+    ],
+    takeaways: [
+      'A declaration describes the interface; a definition provides the implementation.',
+      'Arguments supply values to parameters in the declared order.',
+      'By-value parameters are copies; retain calculated results through return values.',
+    ],
+    verificationNote:
+      'AI-assisted teaching draft reviewed for beginner C++ accuracy. The exact official syllabus through 5.2.3 was not supplied. This page proposes only introductory declarations, definitions, calls, parameters, arguments, return values, and by-value passing; the lecturer must verify every item against that boundary before formal teaching or assessment.',
+  },
+]

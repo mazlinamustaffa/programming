@@ -1,0 +1,28 @@
+import {
+  LayoutDashboard,
+  GraduationCap,
+  Terminal,
+  ClipboardCheck,
+  FolderOpen,
+  Image,
+  Gamepad2,
+  BarChart3,
+  ShieldCheck,
+  BookOpen,
+  CircleHelp,
+  MessageSquare,
+} from 'lucide-react'
+export const navigation = [
+  ['overview', 'Dashboard Overview', LayoutDashboard],
+  ['learning', 'My Learning', GraduationCap],
+  ['infographics', 'Infographic Library', Image],
+  ['comics', 'Comic Notes Library', MessageSquare],
+  ['quiz', 'Interactive Quiz', CircleHelp],
+  ['practical', 'Practical Assessment', ClipboardCheck],
+  ['games', 'Quiz & Game Zone', Gamepad2],
+  ['lab', 'Practice Lab', Terminal],
+  ['progress', 'Learning Progress', BarChart3],
+  ['responsible-ai', 'Responsible AI', ShieldCheck],
+  ['lecturer', 'Lecturer Guide', BookOpen],
+  ['manager', 'Content Manager', FolderOpen],
+]

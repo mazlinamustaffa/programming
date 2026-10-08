@@ -8,14 +8,29 @@ import {
   ChevronRight,
   ListFilter,
 } from 'lucide-react'
-import { topics, parts } from '../data/curriculum'
-import { getRows, exportRows } from '../lib/storage'
+import { topics } from '../data/topics'
+import { learningParts as parts, hubRows } from '../lib/hub'
+import { exportRows } from '../lib/storage'
 import { Status } from './ui'
 import { partIcons } from './icons'
 
 const PAGE_SIZE = 5
 
-export default function ActivityTable({ state, openTopic, notify }) {
+export default function ActivityTable({
+  state,
+  openTopic,
+  notify,
+  rows: providedRows,
+  legacy = false,
+}) {
+  const filterTopics =
+    legacy && providedRows
+      ? [...new Map(providedRows.map((r) => [r.topic.id, r.topic])).values()]
+      : topics
+  const filterParts =
+    legacy && providedRows
+      ? [...new Map(providedRows.map((r) => [r.part.id, r.part])).values()]
+      : parts
   const [search, setSearch] = useState('')
   const [topic, setTopic] = useState('all')
   const [part, setPart] = useState('all')
@@ -24,7 +39,7 @@ export default function ActivityTable({ state, openTopic, notify }) {
   const [showFilters, setShowFilters] = useState(false)
   const rows = useMemo(
     () =>
-      getRows(state).filter(
+      (providedRows || hubRows(state)).filter(
         (row) =>
           (topic === 'all' || topic === row.topic.id) &&
           (part === 'all' || part === row.part.id) &&
@@ -33,7 +48,7 @@ export default function ActivityTable({ state, openTopic, notify }) {
             .toLowerCase()
             .includes(search.toLowerCase()),
       ),
-    [state, search, topic, part, status],
+    [state, providedRows, search, topic, part, status],
   )
   const pageCount = Math.max(1, Math.ceil(rows.length / PAGE_SIZE))
   const currentPage = Math.min(page, pageCount - 1)
@@ -50,9 +65,13 @@ export default function ActivityTable({ state, openTopic, notify }) {
       <div className="panel-header">
         <div>
           <h2>
-            Learning activities<span className="count-badge">25</span>
+            {legacy ? 'Earlier workspace activities' : 'Learning activities'}
+            <span className="count-badge">25</span>
           </h2>
-          <p>Your notes, challenges, and small wins — all in one place.</p>
+          <p>
+            Device-specific activity records. Practical completion means
+            evidence prepared; marks require lecturer review.
+          </p>
         </div>
         <button
           className="button secondary export-button"
@@ -120,7 +139,7 @@ export default function ActivityTable({ state, openTopic, notify }) {
               onChange={(e) => change(setTopic, e.target.value)}
             >
               <option value="all">All topics</option>
-              {topics.map((t) => (
+              {filterTopics.map((t) => (
                 <option key={t.id} value={t.id}>
                   {t.title}
                 </option>
@@ -135,7 +154,7 @@ export default function ActivityTable({ state, openTopic, notify }) {
               onChange={(e) => change(setPart, e.target.value)}
             >
               <option value="all">All types</option>
-              {parts.map((p) => (
+              {filterParts.map((p) => (
                 <option key={p.id} value={p.id}>
                   {p.label}
                 </option>

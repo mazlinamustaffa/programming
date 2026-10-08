@@ -108,7 +108,14 @@ function Notes({ data, completed, onComplete, next }) {
   )
 }
 
-function CodeWorkspace({ data, code, onCode, completed, onComplete, notify }) {
+export function CodeWorkspace({
+  data,
+  code,
+  onCode,
+  completed,
+  onComplete,
+  notify,
+}) {
   const [output, setOutput] = useState(null)
   const [error, setError] = useState('')
   const [running, setRunning] = useState(false)

@@ -1,9 +1,5 @@
+import { useEffect, useState } from 'react'
 import {
-  LayoutDashboard,
-  GraduationCap,
-  Terminal,
-  ClipboardCheck,
-  FolderOpen,
   ChevronDown,
   ArrowUpRight,
   Search,
@@ -13,15 +9,12 @@ import {
   Code2,
   Sparkles,
   ChevronRight,
+  BookOpen,
+  Settings2,
+  CircleHelp,
 } from 'lucide-react'
-
-const navigation = [
-  ['overview', 'Overview', LayoutDashboard],
-  ['learning', 'My learning', GraduationCap],
-  ['lab', 'Practice lab', Terminal],
-  ['assessments', 'Assessments', ClipboardCheck],
-  ['resources', 'Resources', FolderOpen],
-]
+import { topics } from '../data/topics'
+import { navigation } from '../data/navigation'
 
 export function Sidebar({
   current,
@@ -31,6 +24,27 @@ export function Sidebar({
   openPlan,
   openHelp,
 }) {
+  const [expanded, setExpanded] = useState(true)
+  useEffect(() => {
+    if (mobileOpen) document.querySelector('.mobile-close')?.focus()
+  }, [mobileOpen])
+  const item = ([id, label, Icon]) => (
+    <a
+      key={id}
+      href={`#${id}`}
+      className={`nav-item ${current === id ? 'active' : ''}`}
+      aria-current={current === id ? 'page' : undefined}
+      onClick={(e) => {
+        e.preventDefault()
+        navigate(id)
+        closeMobile()
+      }}
+    >
+      <Icon size={18} />
+      <span>{label}</span>
+      {current === id && <span className="nav-active-dot" />}
+    </a>
+  )
   return (
     <>
       {mobileOpen && (
@@ -40,80 +54,102 @@ export function Sidebar({
           onClick={closeMobile}
         />
       )}
-      <aside className={`sidebar ${mobileOpen ? 'mobile-open' : ''}`}>
+      <aside
+        className={`sidebar ${mobileOpen ? 'mobile-open' : ''}`}
+        aria-label="Learning sidebar"
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') {
+            closeMobile()
+            setTimeout(() => document.querySelector('.mobile-menu')?.focus(), 0)
+          }
+        }}
+      >
         <a className="brand" href="#overview" onClick={closeMobile}>
           <span className="brand-mark">
-            <Code2 size={24} />
+            <Code2 size={25} />
           </span>
           <span>
-            fundamentals<span className="brand-sub">PROGRAMMING HUB</span>
+            PROGRAMMING<span className="brand-sub">FUNDAMENTALS</span>
           </span>
         </a>
         <button
           className="mobile-close icon-button"
-          onClick={closeMobile}
           aria-label="Close navigation"
+          onClick={closeMobile}
         >
-          <X size={20} />
+          <X />
         </button>
         <div className="workspace-select">
-          <span className="workspace-symbol">PF</span>
+          <span className="workspace-symbol">C++</span>
           <span>
-            My learning space<small>C++ · Foundations</small>
+            Learning & teaching hub<small>Learn • Practice • Achieve</small>
           </span>
           <span className="workspace-dot" />
         </div>
-        <span className="nav-label">WORKSPACE</span>
+        <span className="nav-label">YOUR LEARNING SPACE</span>
         <nav aria-label="Main navigation">
-          {navigation.map(([id, label, Icon]) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              className={`nav-item ${current === id ? 'active' : ''}`}
-              onClick={(e) => {
-                e.preventDefault()
-                navigate(id)
-                closeMobile()
-              }}
-              aria-current={current === id ? 'page' : undefined}
-            >
-              <Icon size={19} strokeWidth={1.7} />
-              <span>{label}</span>
-              {id === 'learning' && <span className="nav-count">5</span>}
-              {current === id && <span className="nav-active-dot" />}
-            </a>
-          ))}
+          {navigation.slice(0, 2).map(item)}
+          <button
+            className="nav-item topic-toggle"
+            aria-expanded={expanded}
+            aria-controls="topic-navigation"
+            onClick={() => setExpanded(!expanded)}
+          >
+            <BookOpen size={18} />
+            <span>Learning Topics</span>
+            <ChevronDown size={16} className={expanded ? 'expanded' : ''} />
+          </button>
+          {expanded && (
+            <div id="topic-navigation" className="topic-nav">
+              {topics.map((t) => (
+                <a
+                  key={t.id}
+                  href={`#topic/${t.id}`}
+                  className={current === `topic/${t.id}` ? 'active' : ''}
+                  aria-current={
+                    current === `topic/${t.id}` ? 'page' : undefined
+                  }
+                  onClick={(e) => {
+                    e.preventDefault()
+                    navigate(`topic/${t.id}`)
+                    closeMobile()
+                  }}
+                >
+                  <span className={`topic-nav-dot ${t.color}`} />
+                  <span>
+                    Topic {t.number}
+                    <small>{t.shortTitle}</small>
+                  </span>
+                </a>
+              ))}
+            </div>
+          )}
+          {navigation.slice(2).map(item)}
         </nav>
         <div className="sidebar-plan">
-          <span className="plan-icon">
-            <Sparkles size={20} />
-          </span>
-          <h3>Small steps. Big skills.</h3>
-          <p>
-            A little practice every day
-            <br />
-            makes a lasting difference.
-          </p>
+          <Sparkles size={20} />
+          <h3>A little code. A big future.</h3>
+          <p>Make time for your next small win.</p>
           <button onClick={openPlan}>
-            Set your study plan
+            My study plan
             <ArrowUpRight size={15} />
           </button>
         </div>
         <div className="sidebar-bottom">
           <button onClick={openHelp}>
-            <span className="help-symbol">?</span>Help & getting started
+            <CircleHelp size={16} />
+            Getting started
             <ArrowUpRight size={15} />
           </button>
           <div className="sidebar-footer">
             <span className="live-dot" />
-            Your learning, your pace<span>v1.0</span>
+            Device-specific progress<span>v2.0</span>
           </div>
         </div>
       </aside>
     </>
   )
 }
-
 export function Header({
   title,
   name,
@@ -132,36 +168,34 @@ export function Header({
         >
           <Menu size={21} />
         </button>
-        <span>Workspace</span>
+        <span>Learning hub</span>
         <ChevronRight size={14} />
         <strong>{title}</strong>
       </div>
       <div className="topbar-actions">
         <button className="global-search" onClick={openSearch}>
           <Search size={17} />
-          <span>Search anything...</span>
+          <span>Find your next discovery</span>
           <kbd>⌘ K</kbd>
         </button>
-        <span className="header-divider" />
         <button
-          className="icon-button notification-button"
+          className="icon-button"
           aria-label="Open notifications"
           onClick={openNotifications}
         >
           <Bell size={20} />
-          <i />
         </button>
         <button
           className="profile-button"
-          onClick={openProfile}
           aria-label="Open profile settings"
+          onClick={openProfile}
         >
           <span className="avatar">{name.slice(0, 1).toUpperCase()}</span>
-          <span className="profile-text">
+          <span className="profile-name">
             {name}
-            <small>Student workspace</small>
+            <small>My learning space</small>
           </span>
-          <ChevronDown size={14} />
+          <Settings2 size={17} />
         </button>
       </div>
     </header>

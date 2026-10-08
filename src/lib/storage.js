@@ -5,15 +5,8 @@ export const activityId = (topicId, partId) => `${topicId}:${partId}`
 
 export function initialState() {
   return {
-    name: 'Aina',
-    activities: {
-      'intro:notes': { status: 'completed' },
-      'intro:exercise': { status: 'completed' },
-      'intro:practical': { status: 'completed' },
-      'intro:quiz': { status: 'completed', score: 100 },
-      'variables:notes': { status: 'completed' },
-      'variables:exercise': { status: 'in-progress' },
-    },
+    name: 'Learner',
+    activities: {},
     code: {},
     plannedDays: [0, 1, 3],
   }

@@ -23,9 +23,15 @@ import {
   PieChart,
   Pie,
   Cell,
+  BarChart,
+  Bar,
 } from 'recharts'
-import { topics } from '../data/curriculum'
-import { getRows, topicProgress } from '../lib/storage'
+import { topics } from '../data/topics'
+import {
+  hubRows as getRows,
+  hubProgress as topicProgress,
+  weeklyActivity,
+} from '../lib/hub'
 import { TopicIcon, ProgressBar, SectionHeading } from './ui'
 import ActivityTable from './ActivityTable'
 
@@ -130,29 +136,16 @@ export function TopicCards({ state, openTopic, compact = false }) {
   )
 }
 
-function ProgressCharts({ rows }) {
+export function ProgressCharts({ rows, state }) {
   const [week, setWeek] = useState('this')
   const completed = rows.filter((r) => r.status === 'completed').length
   const inProgress = rows.filter((r) => r.status === 'in-progress').length
   const notStarted = rows.length - completed - inProgress
-  const values =
-    week === 'this'
-      ? [
-          Math.min(completed, 1),
-          Math.max(0, Math.min(completed - 1, 2)),
-          Math.max(0, Math.min(completed - 3, 1)),
-          Math.max(0, completed - 4),
-          0,
-          0,
-          0,
-        ]
-      : [0, 1, 0, 1, 0, 2, 1]
-  const data = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(
-    (day, i) => ({ day, activities: values[i] }),
-  )
+  const data = weeklyActivity(state.history, week === 'last')
+  const values = data.map((d) => d.activities)
   const breakdown = [
-    { name: 'Completed', value: completed, color: '#ed8157' },
-    { name: 'In progress', value: inProgress, color: '#9c91d3' },
+    { name: 'Completed', value: completed, color: '#7c3aed' },
+    { name: 'In progress', value: inProgress, color: '#06b6d4' },
     { name: 'Not started', value: notStarted, color: '#eef0f3' },
   ]
   return (
@@ -181,12 +174,12 @@ function ProgressCharts({ rows }) {
             <i />
             Activities completed
           </span>
-          <span>Illustrative weekly activity</span>
+          <span>Recorded activity on this device</span>
         </div>
         <div
           className="area-chart"
           role="img"
-          aria-label={`Illustrative ${week === 'this' ? 'current' : 'last'} week activity: ${data.map((d) => `${d.day} ${d.activities}`).join(', ')}`}
+          aria-label={`Recorded ${week === 'this' ? 'current' : 'last'} week activity: ${data.map((d) => `${d.day} ${d.activities}`).join(', ')}`}
         >
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart
@@ -195,8 +188,8 @@ function ProgressCharts({ rows }) {
             >
               <defs>
                 <linearGradient id="activityFill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#f2a382" stopOpacity={0.3} />
-                  <stop offset="100%" stopColor="#f2a382" stopOpacity={0.01} />
+                  <stop offset="0%" stopColor="#8b5cf6" stopOpacity={0.3} />
+                  <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0.01} />
                 </linearGradient>
               </defs>
               <CartesianGrid
@@ -229,7 +222,7 @@ function ProgressCharts({ rows }) {
               <Area
                 type="monotone"
                 dataKey="activities"
-                stroke="#ed8157"
+                stroke="#7c3aed"
                 strokeWidth={2.5}
                 fill="url(#activityFill)"
                 activeDot={{ r: 5, stroke: '#fff', strokeWidth: 3 }}
@@ -245,7 +238,7 @@ function ProgressCharts({ rows }) {
           <span>
             {week === 'this'
               ? 'Your completions update this week'
-              : 'Sample history'}
+              : 'Your recorded history'}
           </span>
         </div>
       </section>
@@ -309,6 +302,59 @@ function ProgressCharts({ rows }) {
   )
 }
 
+export function TopicProgressChart({ state }) {
+  const data = topics.map((t) => ({
+    name: `Topic ${t.number}`,
+    progress: topicProgress(state, t.id),
+    color:
+      {
+        purple: '#7c3aed',
+        orange: '#ea580c',
+        blue: '#2563eb',
+        green: '#059669',
+        teal: '#059669',
+        pink: '#db2777',
+      }[t.color] || '#7c3aed',
+  }))
+  return (
+    <section className="panel topic-bar-chart">
+      <div className="panel-header">
+        <div>
+          <h2>Topic learning progress</h2>
+          <p>
+            Five activities per topic: notes, practice, practical evidence, quiz
+            and reflection.
+          </p>
+        </div>
+      </div>
+      <div
+        className="bar-chart"
+        role="img"
+        aria-label={data.map((d) => `${d.name} ${d.progress}%`).join(', ')}
+      >
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={data}>
+            <CartesianGrid vertical={false} stroke="#ece8f5" />
+            <XAxis dataKey="name" tickLine={false} axisLine={false} />
+            <YAxis
+              domain={[0, 100]}
+              unit="%"
+              axisLine={false}
+              tickLine={false}
+            />
+            <Tooltip formatter={(v) => [`${v}%`, 'Completion']} />
+            <Bar dataKey="progress" radius={[10, 10, 0, 0]} maxBarSize={62}>
+              {data.map((d) => (
+                <Cell key={d.name} fill={d.color} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </section>
+  )
+}
+
 export default function Dashboard({
   state,
   openTopic,
@@ -323,8 +369,10 @@ export default function Dashboard({
   const average = scores.length
     ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length)
     : 0
-  const explored = topics.filter((t) =>
-    rows.some((r) => r.topic.id === t.id && r.status !== 'not-started'),
+  const explored = topics.filter(
+    (t) =>
+      state.visitedTopics[t.id] ||
+      rows.some((r) => r.topic.id === t.id && r.status !== 'not-started'),
   ).length
   const stats = [
     {
@@ -352,7 +400,7 @@ export default function Dashboard({
         : 'Take your first quiz to begin',
       icon: Target,
       color: 'blue',
-      tag: 'Quiz & test',
+      tag: 'Quiz & marked practical',
     },
     {
       label: 'Topics explored',
@@ -372,10 +420,11 @@ export default function Dashboard({
             <span className="sun-mark">✳</span>Good to see you, {state.name}
           </div>
           <h1>
-            Your next chapter starts here<span>.</span>
+            Your future starts with code<span>.</span>
           </h1>
           <p>
-            A clear path to programming. One concept, one small win at a time.
+            Semester 1 · Diploma in Information Technology · Your personal C++
+            learning journey.
           </p>
         </div>
         <button className="date-button" onClick={openPlan}>
@@ -388,16 +437,16 @@ export default function Dashboard({
         <div className="hero-copy">
           <span className="hero-eyebrow">
             <span />
-            <span>LEARN. PRACTICE. BUILD.</span>
-            <span className="demo-badge">DEMO WORKSPACE</span>
+            <span>LEARN • PRACTICE • CODE • ACHIEVE</span>
+            <span className="demo-badge">C++ LEARNING HUB</span>
           </span>
           <h2>
-            Big ideas start with
+            Build your skills.
             <br />
-            the <span>fundamentals.</span>
+            <span>Shape your future.</span>
           </h2>
           <p>
-            Turn curiosity into confidence. Explore five essential
+            Guided by Ts. Mazlina Md Mustaffa. Explore five essential
             <br className="desktop-break" /> C++ topics through hands-on,
             bite-sized learning.
           </p>
@@ -444,7 +493,8 @@ export default function Dashboard({
         />
         <TopicCards state={state} openTopic={openTopic} />
       </section>
-      <ProgressCharts rows={rows} />
+      <ProgressCharts rows={rows} state={state} />
+      <TopicProgressChart state={state} />
       <ActivityTable state={state} openTopic={openTopic} notify={notify} />
       <div className="bottom-nudge">
         <span className="nudge-icon">
