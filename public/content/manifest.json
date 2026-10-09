@@ -1,5 +1,126 @@
 {
   "version": 1,
-  "resources": [],
-  "games": []
+  "resources": [
+    {
+      "id": "resource-7b2ae0c3-2df9-4a27-ba74-5bac25ac5d28",
+      "topicId": 1,
+      "title": "NOTES TOPIC 1",
+      "description": "",
+      "kind": "infographic",
+      "file": "content/files/resource-7b2ae0c3-2df9-4a27-ba74-5bac25ac5d28.jpeg",
+      "mimeType": "image/jpeg",
+      "fileName": "NOTES TOPIC 1.jpeg",
+      "size": 569062
+    },
+    {
+      "id": "resource-410dfb49-0f3f-4563-9575-91b66de0b415",
+      "topicId": 1,
+      "title": "COMIC TOPIC 1",
+      "description": "",
+      "kind": "comic",
+      "file": "content/files/resource-410dfb49-0f3f-4563-9575-91b66de0b415.jpeg",
+      "mimeType": "image/jpeg",
+      "fileName": "COMIC TOPIC 1.jpeg",
+      "size": 655079
+    },
+    {
+      "id": "resource-33afcb10-e12d-496d-8263-f1f40636e33d",
+      "topicId": 2,
+      "title": "NOTES TOPIC 2",
+      "description": "",
+      "kind": "infographic",
+      "file": "content/files/resource-33afcb10-e12d-496d-8263-f1f40636e33d.jpeg",
+      "mimeType": "image/jpeg",
+      "fileName": "NOTES TOPIC 2.jpeg",
+      "size": 537722
+    },
+    {
+      "id": "resource-a8c0d47b-dad4-4a14-981c-d7f570884823",
+      "topicId": 2,
+      "title": "COMIC TOPIC 2",
+      "description": "",
+      "kind": "comic",
+      "file": "content/files/resource-a8c0d47b-dad4-4a14-981c-d7f570884823.jpeg",
+      "mimeType": "image/jpeg",
+      "fileName": "COMIC TOPIC 2.jpeg",
+      "size": 681270
+    },
+    {
+      "id": "resource-f89c9930-8e8e-42fd-9b9e-e38f6813e597",
+      "topicId": 3,
+      "title": "NOTES TOPIC 3",
+      "description": "",
+      "kind": "infographic",
+      "file": "content/files/resource-f89c9930-8e8e-42fd-9b9e-e38f6813e597.jpeg",
+      "mimeType": "image/jpeg",
+      "fileName": "NOTES TOPIC 3 (2).jpeg",
+      "size": 507027
+    },
+    {
+      "id": "resource-bfd6de29-f183-48af-9c6b-9bdae75ecd0a",
+      "topicId": 3,
+      "title": "COMIC TOPIC 3",
+      "description": "",
+      "kind": "comic",
+      "file": "content/files/resource-bfd6de29-f183-48af-9c6b-9bdae75ecd0a.jpeg",
+      "mimeType": "image/jpeg",
+      "fileName": "COMIC TOPIC 3.jpeg",
+      "size": 726318
+    },
+    {
+      "id": "resource-300b2b3d-92c8-4627-a4f4-51b6e442b40c",
+      "topicId": 4,
+      "title": "NOTES TOPIC 4",
+      "description": "",
+      "kind": "infographic",
+      "file": "content/files/resource-300b2b3d-92c8-4627-a4f4-51b6e442b40c.jpeg",
+      "mimeType": "image/jpeg",
+      "fileName": "NOTES TOPIC 4.jpeg",
+      "size": 509081
+    },
+    {
+      "id": "resource-a2e2b44c-e3f5-4e0f-b4c5-f7c92b793f7e",
+      "topicId": 4,
+      "title": "COMIC TOPIC 4",
+      "description": "",
+      "kind": "comic",
+      "file": "content/files/resource-a2e2b44c-e3f5-4e0f-b4c5-f7c92b793f7e.jpeg",
+      "mimeType": "image/jpeg",
+      "fileName": "COMIC TOPIC 4.jpeg",
+      "size": 667644
+    },
+    {
+      "id": "resource-4dc958d2-5261-42e5-87be-5129b8d55377",
+      "topicId": 5,
+      "title": "NOTES TOPIC 5",
+      "description": "",
+      "kind": "infographic",
+      "file": "content/files/resource-4dc958d2-5261-42e5-87be-5129b8d55377.jpeg",
+      "mimeType": "image/jpeg",
+      "fileName": "NOTES TOPIC 5.jpeg",
+      "size": 492458
+    },
+    {
+      "id": "resource-2b76a6a5-6d8a-4274-981b-3efc1508e163",
+      "topicId": 5,
+      "title": "COMIC TOPIC 5",
+      "description": "",
+      "kind": "comic",
+      "file": "content/files/resource-2b76a6a5-6d8a-4274-981b-3efc1508e163.jpeg",
+      "mimeType": "image/jpeg",
+      "fileName": "COMIC TOPIC 5.jpeg",
+      "size": 722958
+    }
+  ],
+  "games": [
+    {
+      "id": "game-9fffec99-6864-486a-97d2-705f4e88eb51",
+      "topicId": 1,
+      "title": "GAME",
+      "description": "",
+      "platform": "Other",
+      "difficulty": "Beginner",
+      "url": "https://quiz.zep.us/en/play/9PqAW9"
+    }
+  ]
 }

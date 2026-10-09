@@ -237,6 +237,8 @@ test('practical timer warns at ten minutes, survives reload and expires without 
 })
 
 test('IndexedDB image drafts can be saved, edited, previewed, exported and discarded without public publication', async ({ page }) => {
+  // Isolate draft-only behavior from the lecturer's evolving public catalog.
+  await page.route('**/content/manifest.json', route => route.fulfill({ json: { version: 1, resources: [], games: [] } }))
   await page.goto('./#manager')
   await page.locator('.cm-form select').first().selectOption('4')
   await page.getByLabel('Title', { exact: true }).fill('Lecturer array notes')
@@ -275,6 +277,7 @@ test('IndexedDB image drafts can be saved, edited, previewed, exported and disca
 })
 
 test('quiz game drafts validate public HTTPS URLs, persist and export while published game zone stays empty', async ({ page }) => {
+  await page.route('**/content/manifest.json', route => route.fulfill({ json: { version: 1, resources: [], games: [] } }))
   await page.goto('./#manager')
   await page.getByRole('button', { name: /Quiz & game links/ }).click()
   await page.getByLabel('Title', { exact: true }).fill('Loop revision')
